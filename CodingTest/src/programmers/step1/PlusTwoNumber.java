@@ -3,24 +3,34 @@ package programmers.step1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class PlusTwoNumber {
 
     public int[] solution(int[] numbers) {
-        // PriorityQueue는 자동 정렬되며 Set과 마찬가지로 중복된 값에 대해서는 중복되지 않음
-        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
-        // numbers의 모든 수를 더하여 PriorityQueue에 넣어주는 부분
+        // HashSet은 중복된 값 저장 X
+        HashSet<Integer> set = new HashSet<Integer>();
+        // numbers의 모든 수를 더하여 set에 넣어주는 부분
         for(int i=0; i<numbers.length-1; i++){
             for(int j=i+1; j<numbers.length; j++){
-                queue.offer(numbers[i] + numbers[j]);
+                set.add(numbers[i] + numbers[j]);
             }
         }
 
-        int[] answer = new int[queue.size()];
-        for(int i=0; i<answer.length; i++)
-            answer[i] = queue.poll();
+        int[] answer = new int[set.size()];
+        int digit = 0;
+        Iterator iterator = set.iterator();
 
+        // set에 있는 값들을 answer로 넣어줌
+        while (iterator.hasNext())
+            answer[digit++] = (int) iterator.next();
+
+        // 오름차순 정렬
+        Arrays.sort(answer);
+        
         return answer;
     }
 
