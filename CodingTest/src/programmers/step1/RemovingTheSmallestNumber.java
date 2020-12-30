@@ -3,6 +3,8 @@ package programmers.step1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class RemovingTheSmallestNumber {
 
     @Test
@@ -35,6 +37,11 @@ public class RemovingTheSmallestNumber {
         }
 
         return answer;
+
+//        아래는 stream을 이용한 방식
+//        if (arr.length <= 1) return new int[]{ -1 }; // 3.
+//        int min = Arrays.stream(arr).min().getAsInt(); // 1.
+//        return Arrays.stream(arr).filter(i -> i != min).toArray(); // 2.
     }
 }
 //출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
