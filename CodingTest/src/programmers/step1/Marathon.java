@@ -4,25 +4,49 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Marathon {
+
+//    public String solution(String[] participant, String[] completion) {
+//        String answer = "";
+//
+//        // 완주하지 못한사람은 참가자 중 완주자에 이름이 없는 사람
+//        // 참가자 - 완주자 = 완주하지 못한 자
+//        // 참가자와 완주자 배열을 오름차순 정렬 후 차례대로 비교하여 다른 이름이 있는경우 해당 참가자는 완주하지 못한 자
+//        Arrays.sort(participant);
+//        Arrays.sort(completion);
+//        for (int i=0; i<completion.length; i++){
+//            if(!participant[i].equals(completion[i])){
+//                answer= participant[i];
+//                break;
+//            }
+//        }
+//        // 마지막 참가자가 완주하지 못한 경우를 위해 아래식 적용
+//        return answer.equals("")?answer=participant[participant.length-1]:answer;
+//    }
 
     public String solution(String[] participant, String[] completion) {
         String answer = "";
 
-        // 완주하지 못한사람은 참가자 중 완주자에 이름이 없는 사람
-        // 참가자 - 완주자 = 완주하지 못한 자
-        // 참가자와 완주자 배열을 오름차순 정렬 후 차례대로 비교하여 다른 이름이 있는경우 해당 참가자는 완주하지 못한 자
-        Arrays.sort(participant);
-        Arrays.sort(completion);
-        for (int i=0; i<completion.length; i++){
-            if(!participant[i].equals(completion[i])){
-                answer= participant[i];
+        HashMap<String, Integer> temp = new HashMap<>();
+
+        for(String p : participant){
+            temp.put(p, temp.getOrDefault(p, 0)+1);
+        }
+
+        for(String c : completion){
+            temp.put(c, temp.get(c)-1);
+        }
+
+        for(String p : participant){
+            if(temp.get(p) > 0) {
+                answer = p;
                 break;
             }
         }
-        // 마지막 참가자가 완주하지 못한 경우를 위해 아래식 적용
-        return answer.equals("")?answer=participant[participant.length-1]:answer;
+
+        return answer;
     }
 
     @Test
