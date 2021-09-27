@@ -19,52 +19,29 @@ public class GymSuit {
     // 4. 여분의 체육복을 가진 학생은 앞번호와 뒷번호에게 체육복을 빌려줄 수 있음
     // 5. 체육복을 1개라도 가진 학생수 return
     public int solution(int n, int[] lost, int[] reserve) {
-        int answer = 0;
+        int answer = n;
+        int[] students = new int[n+2];
 
-        int[] gymSuit = new int[n];
-        // 1.
-        for(int i=0; i< gymSuit.length; i++){
-            gymSuit[i]++;
-        }
-
-        // 2.
         for(int l : lost)
-            gymSuit[l-1]--;
+            students[l]--;
 
-        // 3.
         for(int r : reserve)
-            gymSuit[r-1]++;
+            students[r]++;
 
-        if(gymSuit[0] == 2){
-            if(gymSuit[1] == 0){
-                gymSuit[0]--;
-                gymSuit[1]++;
-            }
-        }
+        for(int i=1; i<students.length; i++){
 
-        // 4.
-        for(int i=1; i<gymSuit.length-1; i++){
-            if(gymSuit[i] == 2){
-                if(gymSuit[i-1] == 0){
-                    gymSuit[i]--;
-                    gymSuit[i-1]++;
-                }else if (gymSuit[i+1]==0){
-                    gymSuit[i]--;
-                    gymSuit[i+1]++;
+            if(students[i] == -1){
+
+                if(students[i-1] == 1){
+                    students[i]++;
+                    students[i-1]--;
+                }else if(students[i+1] == 1){
+                    students[i]++;
+                    students[i+1]--;
+                }else {
+                    answer--;
                 }
             }
-        }
-
-        if(gymSuit[gymSuit.length-1] == 2){
-            if(gymSuit[gymSuit.length-2] == 0){
-                gymSuit[gymSuit.length-1]--;
-                gymSuit[gymSuit.length-2]++;
-            }
-        }
-
-        // 5.
-        for(int suit : gymSuit){
-            if(suit > 0) answer++;
         }
 
         return answer;
